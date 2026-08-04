@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -73,7 +72,7 @@ export default function Footer() {
             className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-surface text-accent shadow-sm border border-border-light hover:bg-accent hover:text-text-on-dark transition-all duration-300"
             aria-label="Back to top"
           >
-            <ArrowUp size={18} />
+            <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
           </button>
         </div>
       </div>
