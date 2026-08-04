@@ -19,6 +19,136 @@ interface FormErrors {
   phone?: string;
 }
 
+interface FloatingFieldProps {
+  id: string;
+  label: string;
+  type?: string;
+  required?: boolean;
+  value: string;
+  onChange: (val: string) => void;
+  error?: string;
+  placeholder?: string;
+  icon: React.ReactNode;
+}
+
+// Icon Components
+const CompanyIcon = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6.75h1.5m-1.5 3h1.5m-1.5 3h1.5M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+  </svg>
+);
+
+const PersonIcon = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+  </svg>
+);
+
+const EmailIcon = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.826-1.015-5.099-3.288-6.114-6.116l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+  </svg>
+);
+
+const LinkIcon = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+);
+
+// Reusable Floating Field Component
+function FloatingField({
+  id,
+  label,
+  type = "text",
+  required = false,
+  value,
+  onChange,
+  error,
+  placeholder = "",
+  icon,
+}: FloatingFieldProps) {
+  const [focused, setFocused] = useState(false);
+  const isFloating = focused || value.trim().length > 0;
+
+  return (
+    <div className="flex flex-col">
+      <div
+        className={`relative rounded-xl bg-charcoal/70 border transition-all duration-300 group ${
+          error
+            ? "border-error/80 bg-error/5 shadow-[0_0_12px_rgba(248,113,113,0.15)]"
+            : focused
+            ? "border-gold bg-charcoal-light/50 shadow-[0_0_20px_rgba(201,169,110,0.15)]"
+            : "border-border hover:border-border-light hover:bg-charcoal/90"
+        }`}
+      >
+        {/* Field Icon */}
+        <div
+          className={`absolute left-3.5 top-1/2 -translate-y-1/2 transition-colors duration-300 pointer-events-none ${
+            error ? "text-error" : focused ? "text-gold" : "text-text-muted group-hover:text-text-secondary"
+          }`}
+        >
+          {icon}
+        </div>
+
+        {/* Floating Label */}
+        <label
+          htmlFor={id}
+          className={`absolute left-11 transition-all duration-200 pointer-events-none font-medium ${
+            isFloating
+              ? "top-1.5 text-[10px] tracking-wider uppercase " +
+                (error ? "text-error font-semibold" : focused ? "text-gold font-semibold" : "text-text-secondary")
+              : "top-3.5 text-xs sm:text-sm text-text-muted"
+          }`}
+        >
+          {label} {required && <span className="text-error font-bold ml-0.5">*</span>}
+        </label>
+
+        {/* Input */}
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          placeholder={focused ? placeholder : ""}
+          className={`w-full pl-11 pr-4 text-sm text-cream bg-transparent focus:outline-none transition-all duration-200 ${
+            isFloating ? "pt-5 pb-1.5" : "py-3.5"
+          }`}
+        />
+
+        {/* Gold Underline Animation Bar */}
+        <div
+          className={`absolute bottom-0 left-0 h-[2px] w-full rounded-b-xl transition-transform duration-300 origin-left ${
+            error
+              ? "bg-error scale-x-100"
+              : focused
+              ? "bg-gradient-to-r from-gold-dark via-gold to-gold-light scale-x-100"
+              : "scale-x-0"
+          }`}
+        />
+      </div>
+
+      {/* Japanese Error Message */}
+      {error && (
+        <p className="mt-1.5 text-xs text-error flex items-center gap-1 font-medium animate-fade-in">
+          <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>{error}</span>
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function ConversionCTA() {
   const [sectionRef, sectionVisible] = useScrollAnimation<HTMLElement>({
     threshold: 0.05,
@@ -97,10 +227,6 @@ export default function ConversionCTA() {
     setWaitlistSuccess(true);
   };
 
-  const inputClasses =
-    "w-full px-4 py-3 bg-charcoal/50 border border-border rounded-lg text-cream placeholder:text-text-muted focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300 text-sm";
-  const labelClasses = "block text-sm font-medium text-text-secondary mb-1.5";
-
   return (
     <section
       id="conversion-cta"
@@ -108,8 +234,26 @@ export default function ConversionCTA() {
       className="relative py-24 lg:py-32 bg-matte-black overflow-hidden"
       aria-label="お問い合わせ・サンプル請求"
     >
-      {/* Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/3 rounded-full blur-[150px]" />
+      {/* Inline styles for celebration particles animation */}
+      <style>{`
+        @keyframes confetti-fall {
+          0% {
+            transform: translateY(-10px) rotate(0deg) scale(0.8);
+            opacity: 1;
+          }
+          70% {
+            opacity: 0.9;
+          }
+          100% {
+            transform: translateY(320px) rotate(360deg) scale(0.5);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
+      {/* Ambient Radial Background Glows */}
+      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gold/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-teal/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -117,12 +261,16 @@ export default function ConversionCTA() {
           className={`text-center mb-16 lg:mb-20 ${sectionVisible ? "" : "opacity-0"}`}
           style={sectionVisible ? { animation: "fade-in-up 0.8s ease-out forwards" } : {}}
         >
-          <span className="text-xs tracking-[0.3em] text-gold uppercase font-medium">
-            Contact &amp; Sample Request
-          </span>
-          <h2 className="mt-4 text-3xl lg:text-4xl font-bold text-cream tracking-tight">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs tracking-[0.3em] text-gold uppercase font-medium bg-gold/10 border border-gold/20 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            UMAMI VANILLA | Contact &amp; Sample Request
+          </div>
+          <h2 className="text-3xl lg:text-5xl font-bold text-cream tracking-tight">
             まずは、味で判断してください。
           </h2>
+          <p className="mt-4 text-sm lg:text-base text-text-secondary max-w-2xl mx-auto">
+            店舗・事業主様限定で『UMAMI VANILLA』の味わい・口溶けを直接ご体感いただける無料サンプルをお届けします。
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
@@ -132,131 +280,173 @@ export default function ConversionCTA() {
             className={`lg:col-span-3 ${formVisible ? "" : "opacity-0"}`}
             style={formVisible ? { animation: "slide-in-left 0.8s ease-out forwards" } : {}}
           >
-            <div className="glass rounded-2xl p-8 lg:p-10 border border-border hover:border-gold/10 transition-all duration-500">
-              {/* Scarcity Copy */}
-              <div className="mb-8 p-4 rounded-xl bg-gold/5 border border-gold/10">
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  品質を維持したクラフト生産（
-                  <span className="text-gold font-bold">1日最大60リットル</span>
-                  ）のため、新規のお取引枠には限りがございます。まずは無料サンプル（WELLNESS
-                  / UMAMI
-                  各1カップ）で、その圧倒的な質感をお確かめください。
-                </p>
+            <div className="glass-strong rounded-3xl p-8 lg:p-10 border border-border/80 hover:border-gold/20 transition-all duration-500 shadow-2xl relative">
+              
+              {/* Scarcity Message Box with Subtle Animated Border */}
+              <div className="mb-8 relative rounded-xl p-[1px] overflow-hidden group">
+                {/* Animated Shimmer Border Background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-gold/20 via-gold-light/60 to-gold/20 bg-[length:200%_auto] animate-shimmer rounded-xl opacity-90" />
+                
+                {/* Inner Scarcity Content */}
+                <div className="relative rounded-[11px] bg-surface-elevated/95 backdrop-blur-md p-5 border border-gold/20 shadow-inner">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-gold/20 text-gold border border-gold/40">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold animate-ping" />
+                      1日60L限定生産枠
+                    </span>
+                    <span className="text-[11px] text-text-muted font-medium">※クラフト生産につき数に限りあり</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                    品質を維持したクラフト生産（
+                    <span className="text-gold font-bold bg-gold/10 px-1.5 py-0.5 rounded border border-gold/30">1日最大60リットル</span>
+                    ）のため、新規のお取引枠には限りがございます。まずは無料サンプル（WELLNESS
+                    / UMAMI
+                    各1カップ）で、その圧倒的な質感をお確かめください。
+                  </p>
+                </div>
               </div>
 
               {formSuccess ? (
-                /* Success State */
-                <div className="text-center py-12" style={{ animation: "scale-in 0.5s ease-out forwards" }}>
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success/10 mb-6">
-                    <svg className="w-8 h-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                /* Celebratory Success State with Confetti Animation */
+                <div className="relative text-center py-12 px-4 overflow-hidden" style={{ animation: "scale-in 0.5s ease-out forwards" }}>
+                  {/* Confetti Particles */}
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+                    {Array.from({ length: 24 }).map((_, i) => {
+                      const colors = ['#c9a96e', '#d4ba85', '#2a6b6b', '#f5f0e8', '#4ade80'];
+                      const bg = colors[i % colors.length];
+                      const left = `${(i * 17) % 100}%`;
+                      const size = `${(i % 3) * 3 + 6}px`;
+                      const delay = `${(i % 5) * 0.18}s`;
+                      const duration = `${2.5 + (i % 4) * 0.5}s`;
+                      const isCircle = i % 2 === 0;
+                      return (
+                        <span
+                          key={i}
+                          className="absolute top-0 animate-[confetti-fall_3s_ease-in-out_infinite]"
+                          style={{
+                            left,
+                            width: size,
+                            height: isCircle ? size : `${parseInt(size) * 1.6}px`,
+                            backgroundColor: bg,
+                            borderRadius: isCircle ? '50%' : '2px',
+                            opacity: 0.85,
+                            animationDelay: delay,
+                            animationDuration: duration,
+                          }}
+                        />
+                      );
+                    })}
                   </div>
-                  <h3 className="text-xl font-bold text-cream mb-2">
+
+                  {/* Celebratory Badge & Icon */}
+                  <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-success/20 to-gold/10 border border-success/40 mb-6 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+                    <div className="w-14 h-14 rounded-full bg-success/20 flex items-center justify-center animate-pulse">
+                      <svg className="w-8 h-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <span className="block text-xs font-bold tracking-[0.2em] text-gold uppercase mb-2">
+                    UMAMI VANILLA Sample Request
+                  </span>
+
+                  <h3 className="text-2xl font-bold text-cream mb-3 tracking-tight">
                     サンプル請求を受け付けました
                   </h3>
-                  <p className="text-text-secondary text-sm">
+
+                  <p className="text-text-secondary text-sm max-w-md mx-auto leading-relaxed mb-8">
                     2営業日以内にご連絡いたします。楽しみにお待ちください。
                   </p>
+
+                  {/* Order Summary Confirmation Card */}
+                  <div className="max-w-sm mx-auto p-4 rounded-2xl bg-charcoal/80 border border-border/80 text-left text-xs text-text-secondary space-y-2.5 shadow-lg">
+                    <div className="flex justify-between items-center border-b border-border/40 pb-2">
+                      <span className="text-text-muted">請求品目:</span>
+                      <span className="font-semibold text-cream">UMAMI VANILLA 無料サンプル</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-border/40 pb-2">
+                      <span className="text-text-muted">セット内容:</span>
+                      <span className="text-cream">WELLNESS / UMAMI 各1カップ</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-text-muted">お届け目安:</span>
+                      <span className="text-gold font-bold">2営業日以内に発送</span>
+                    </div>
+                  </div>
                 </div>
               ) : (
-                /* Form */
+                /* Sample Request Form */
                 <form onSubmit={handleFormSubmit} noValidate>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {/* Company Name */}
                     <div className="sm:col-span-2">
-                      <label htmlFor="companyName" className={labelClasses}>
-                        会社名・店舗名 <span className="text-error">*</span>
-                      </label>
-                      <input
+                      <FloatingField
                         id="companyName"
-                        type="text"
-                        className={`${inputClasses} ${formErrors.companyName ? "border-error focus:border-error focus:ring-error/20" : ""}`}
-                        placeholder="株式会社〇〇 / 〇〇レストラン"
+                        label="会社名・店舗名"
+                        required
                         value={formData.companyName}
-                        onChange={(e) =>
-                          setFormData({ ...formData, companyName: e.target.value })
-                        }
+                        onChange={(val) => setFormData({ ...formData, companyName: val })}
+                        error={formErrors.companyName}
+                        placeholder="例：株式会社〇〇 / Cafe UMAMI"
+                        icon={<CompanyIcon />}
                       />
-                      {formErrors.companyName && (
-                        <p className="mt-1 text-xs text-error">{formErrors.companyName}</p>
-                      )}
                     </div>
 
                     {/* Contact Person */}
                     <div>
-                      <label htmlFor="contactPerson" className={labelClasses}>
-                        ご担当者名 <span className="text-error">*</span>
-                      </label>
-                      <input
+                      <FloatingField
                         id="contactPerson"
-                        type="text"
-                        className={`${inputClasses} ${formErrors.contactPerson ? "border-error focus:border-error focus:ring-error/20" : ""}`}
-                        placeholder="山田 太郎"
+                        label="ご担当者名"
+                        required
                         value={formData.contactPerson}
-                        onChange={(e) =>
-                          setFormData({ ...formData, contactPerson: e.target.value })
-                        }
+                        onChange={(val) => setFormData({ ...formData, contactPerson: val })}
+                        error={formErrors.contactPerson}
+                        placeholder="例：山田 太郎"
+                        icon={<PersonIcon />}
                       />
-                      {formErrors.contactPerson && (
-                        <p className="mt-1 text-xs text-error">{formErrors.contactPerson}</p>
-                      )}
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label htmlFor="email" className={labelClasses}>
-                        メールアドレス <span className="text-error">*</span>
-                      </label>
-                      <input
+                      <FloatingField
                         id="email"
+                        label="メールアドレス"
                         type="email"
-                        className={`${inputClasses} ${formErrors.email ? "border-error focus:border-error focus:ring-error/20" : ""}`}
-                        placeholder="info@example.com"
+                        required
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
+                        onChange={(val) => setFormData({ ...formData, email: val })}
+                        error={formErrors.email}
+                        placeholder="例：info@example.com"
+                        icon={<EmailIcon />}
                       />
-                      {formErrors.email && (
-                        <p className="mt-1 text-xs text-error">{formErrors.email}</p>
-                      )}
                     </div>
 
                     {/* Phone */}
                     <div>
-                      <label htmlFor="phone" className={labelClasses}>
-                        お電話番号 <span className="text-error">*</span>
-                      </label>
-                      <input
+                      <FloatingField
                         id="phone"
+                        label="お電話番号"
                         type="tel"
-                        className={`${inputClasses} ${formErrors.phone ? "border-error focus:border-error focus:ring-error/20" : ""}`}
-                        placeholder="03-1234-5678"
+                        required
                         value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
+                        onChange={(val) => setFormData({ ...formData, phone: val })}
+                        error={formErrors.phone}
+                        placeholder="例：03-1234-5678"
+                        icon={<PhoneIcon />}
                       />
-                      {formErrors.phone && (
-                        <p className="mt-1 text-xs text-error">{formErrors.phone}</p>
-                      )}
                     </div>
 
                     {/* Store URL */}
                     <div>
-                      <label htmlFor="storeUrl" className={labelClasses}>
-                        店舗URL（任意）
-                      </label>
-                      <input
+                      <FloatingField
                         id="storeUrl"
+                        label="店舗URL（任意）"
                         type="url"
-                        className={inputClasses}
-                        placeholder="https://your-store.com"
                         value={formData.storeUrl}
-                        onChange={(e) =>
-                          setFormData({ ...formData, storeUrl: e.target.value })
-                        }
+                        onChange={(val) => setFormData({ ...formData, storeUrl: val })}
+                        placeholder="例：https://your-store.com"
+                        icon={<LinkIcon />}
                       />
                     </div>
                   </div>
@@ -266,22 +456,69 @@ export default function ConversionCTA() {
                     id="sample-request-submit"
                     type="submit"
                     disabled={formSubmitting}
-                    className="mt-8 w-full relative inline-flex items-center justify-center px-8 py-4 text-base font-bold tracking-wider text-matte-black gradient-gold rounded-xl transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20 hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="mt-8 w-full relative inline-flex items-center justify-center px-8 py-4 text-base font-bold tracking-wider text-matte-black bg-gradient-to-r from-gold-dark via-gold to-gold-light rounded-xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,169,110,0.35)] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 group overflow-hidden border border-gold/40"
                   >
+                    {/* Hover Sheen Light Beam Effect */}
+                    <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out pointer-events-none" />
+
                     {formSubmitting ? (
                       <div className="flex items-center gap-3">
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <svg className="animate-spin h-5 w-5 text-matte-black" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                         </svg>
-                        <span>送信中...</span>
+                        <span>サンプル請求を送信中...</span>
                       </div>
                     ) : (
-                      "無料サンプルを請求する"
+                      <div className="flex items-center gap-2">
+                        <span>無料サンプルを請求する</span>
+                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                      </div>
                     )}
                   </button>
                 </form>
               )}
+
+              {/* Trust Signals Section */}
+              <div className="mt-8 pt-6 border-t border-border/60">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+                  {/* Signal 1: Completely Free */}
+                  <div className="flex flex-col items-center p-3 rounded-xl bg-charcoal/40 border border-border/60 hover:border-gold/30 hover:bg-charcoal/70 transition-all duration-300 group">
+                    <div className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V6a2 2 0 10-2 2h2zm0 13C10.832 21 4 17.67 4 11V6.368c0-.527.355-.986.866-1.111l6.5-1.585a1.5 1.5 0 01.768 0l6.5 1.585c.511.125.866.584.866 1.111V11c0 6.67-6.832 10-8 10z" />
+                      </svg>
+                    </div>
+                    <span className="text-xs font-bold text-cream">完全無料</span>
+                    <span className="text-[10px] text-text-muted mt-0.5">サンプル・送料0円</span>
+                  </div>
+
+                  {/* Signal 2: No Sales Calls */}
+                  <div className="flex flex-col items-center p-3 rounded-xl bg-charcoal/40 border border-border/60 hover:border-gold/30 hover:bg-charcoal/70 transition-all duration-300 group">
+                    <div className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                      </svg>
+                    </div>
+                    <span className="text-xs font-bold text-cream">営業電話なし</span>
+                    <span className="text-[10px] text-text-muted mt-0.5">強引な勧誘一切なし</span>
+                  </div>
+
+                  {/* Signal 3: Ships in 2 Biz Days */}
+                  <div className="flex flex-col items-center p-3 rounded-xl bg-charcoal/40 border border-border/60 hover:border-gold/30 hover:bg-charcoal/70 transition-all duration-300 group">
+                    <div className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5" />
+                      </svg>
+                    </div>
+                    <span className="text-xs font-bold text-cream">2営業日以内に発送</span>
+                    <span className="text-[10px] text-text-muted mt-0.5">全国迅速配送</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -291,79 +528,103 @@ export default function ConversionCTA() {
             className={`lg:col-span-2 ${whitepaperVisible ? "" : "opacity-0"}`}
             style={whitepaperVisible ? { animation: "slide-in-right 0.8s ease-out 0.2s both" } : {}}
           >
-            <div className="glass rounded-2xl overflow-hidden border border-border hover:border-teal/20 transition-all duration-500 h-full flex flex-col">
-              {/* Whitepaper Image */}
-              <div className="relative aspect-[3/2] overflow-hidden">
+            <div className="glass-strong rounded-3xl overflow-hidden border border-border/80 hover:border-teal/30 transition-all duration-500 h-full flex flex-col shadow-2xl relative group">
+              {/* Whitepaper Image Area */}
+              <div className="relative aspect-[3/2] overflow-hidden bg-charcoal">
                 <Image
                   src="/images/whitepaper-blur.png"
                   alt="インバウンド対応ヴィーガンデザート高収益化ガイド"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-elevated to-transparent" />
-                {/* Coming Soon Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-teal/20 text-teal-light border border-teal/30 backdrop-blur-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal-light animate-pulse" />
-                    近日公開
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-elevated via-surface-elevated/40 to-transparent" />
+                
+                {/* Urgent Badges */}
+                <div className="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider bg-gold/20 text-gold border border-gold/40 backdrop-blur-md shadow-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-ping" />
+                    公開前限定
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-teal/20 text-teal-light border border-teal/40 backdrop-blur-md">
+                    優先案内枠
                   </span>
                 </div>
               </div>
 
-              {/* Content */}
+              {/* Content Area */}
               <div className="p-6 lg:p-8 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-cream mb-2 leading-snug">
+                  <h3 className="text-lg lg:text-xl font-bold text-cream mb-3 leading-snug tracking-tight">
                     【近日公開】インバウンド単価を上げる！
                     <br />
                     ヴィーガンデザート高収益化ガイド
                   </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-4">
                     導入事例・原価設計・メニュー構成のベストプラクティスをまとめたホワイトペーパーを準備中です。
                   </p>
+
+                  {/* Micro Urgency Banner */}
+                  <div className="p-3 rounded-xl bg-teal/10 border border-teal/20 text-xs text-teal-light mb-6 flex items-start gap-2">
+                    <svg className="w-4 h-4 text-teal-light flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                    </svg>
+                    <span>リスト登録者限定で、一般公開前に先行ダウンロードURLをメールで優先配信いたします。</span>
+                  </div>
                 </div>
 
                 {waitlistSuccess ? (
-                  <div className="text-center py-4" style={{ animation: "scale-in 0.5s ease-out forwards" }}>
-                    <div className="inline-flex items-center gap-2 text-success">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <div className="text-center py-6 bg-teal/10 border border-teal/30 rounded-2xl p-4" style={{ animation: "scale-in 0.5s ease-out forwards" }}>
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal/20 text-teal-light mb-3">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-sm font-medium">登録完了しました</span>
                     </div>
+                    <h4 className="text-sm font-bold text-cream mb-1">優先登録完了</h4>
+                    <p className="text-xs text-text-secondary">
+                      公開日にメールにて優先ダウンロードURLをお届けします。
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleWaitlistSubmit} noValidate>
                     <div className="flex flex-col gap-3">
-                      <input
+                      <FloatingField
                         id="waitlist-email"
+                        label="メールアドレス"
                         type="email"
-                        className={`${inputClasses} ${waitlistError ? "border-error" : ""}`}
-                        placeholder="メールアドレスを入力"
+                        required
                         value={waitlistEmail}
-                        onChange={(e) => {
-                          setWaitlistEmail(e.target.value);
-                          setWaitlistError("");
+                        onChange={(val) => {
+                          setWaitlistEmail(val);
+                          if (waitlistError) setWaitlistError("");
                         }}
+                        error={waitlistError}
+                        placeholder="例：info@example.com"
+                        icon={<EmailIcon />}
                       />
-                      {waitlistError && (
-                        <p className="text-xs text-error">{waitlistError}</p>
-                      )}
+
                       <button
                         id="waitlist-submit"
                         type="submit"
                         disabled={waitlistSubmitting}
-                        className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-bold tracking-wider text-cream bg-teal hover:bg-teal-light rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-teal/20 active:scale-[0.98] disabled:opacity-60"
+                        className="w-full relative inline-flex items-center justify-center px-6 py-3.5 text-sm font-bold tracking-wider text-cream bg-gradient-to-r from-teal to-teal-light hover:from-teal-light hover:to-teal rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-teal/25 hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed group overflow-hidden"
                       >
                         {waitlistSubmitting ? (
-                          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
+                          <div className="flex items-center gap-2">
+                            <svg className="animate-spin h-5 w-5 text-cream" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            <span>登録処理中...</span>
+                          </div>
                         ) : (
-                          "公開待ちリストに登録する"
+                          <div className="flex items-center gap-2">
+                            <span>公開待ちリストに登録する</span>
+                            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                          </div>
                         )}
                       </button>
                     </div>

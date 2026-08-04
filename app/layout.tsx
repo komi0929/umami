@@ -17,10 +17,11 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "UMAMI | 業務用プレミアムヴィーガンアイスクリーム",
+  title: "UMAMI VANILLA | 業務用プレミアムヴィーガンアイスクリーム",
   description:
-    "100%植物性・グルテンフリー。和の発酵技術（甘酒・白味噌）が生む、インバウンド需要とアレルギー対策を網羅する次世代の業務用ヴィーガンアイス。高級ホテル・和食店・ヘルスカフェ向け無料サンプル受付中。",
+    "100%植物性・グルテンフリー。和の発酵技術（甘酒・白味噌）が生む、インバウンド需要とアレルギー対策を網羅する次世代の業務用ヴィーガンアイス。UMAMI VANILLAとWELLNESS VANILLAの2ライン展開。高級ホテル・和食店・ヘルスカフェ向け無料サンプル受付中。",
   keywords: [
+    "UMAMI VANILLA",
     "ヴィーガンアイスクリーム",
     "業務用",
     "プレミアム",
@@ -33,20 +34,21 @@ export const metadata: Metadata = {
     "発酵",
     "ホテルデザート",
     "和食デザート",
+    "WELLNESS VANILLA",
     "vegan ice cream",
     "B2B",
   ],
   openGraph: {
-    title: "UMAMI | 業務用プレミアムヴィーガンアイスクリーム",
+    title: "UMAMI VANILLA | 業務用プレミアムヴィーガンアイスクリーム",
     description:
-      "100%植物性・グルテンフリー。和の発酵技術が生む、次世代の業務用ヴィーガンアイス。無料サンプル受付中。",
+      "100%植物性・グルテンフリー。和の発酵技術が生む、次世代の業務用ヴィーガンアイス。UMAMI VANILLA & WELLNESS VANILLAの2ライン展開。無料サンプル受付中。",
     type: "website",
     locale: "ja_JP",
-    siteName: "UMAMI",
+    siteName: "UMAMI VANILLA",
   },
   twitter: {
     card: "summary_large_image",
-    title: "UMAMI | 業務用プレミアムヴィーガンアイスクリーム",
+    title: "UMAMI VANILLA | 業務用プレミアムヴィーガンアイスクリーム",
     description:
       "100%植物性・グルテンフリー。和の発酵技術が生む、次世代の業務用ヴィーガンアイス。",
   },

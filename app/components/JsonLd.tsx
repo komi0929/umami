@@ -2,9 +2,9 @@ export default function JsonLd() {
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "UMAMI プレミアムヴィーガンアイスクリーム 業務用ラインナップ",
+    name: "UMAMI VANILLA プレミアムヴィーガンアイスクリーム 業務用ラインナップ",
     description:
-      "100%植物性・グルテンフリーの業務用プレミアムヴィーガンアイスクリーム。和の発酵技術を活かした2つのライン。",
+      "100%植物性・グルテンフリーの業務用プレミアムヴィーガンアイスクリーム。和の発酵技術を活かした2つのライン。UMAMI VANILLAとWELLNESS VANILLAをご用意。",
     itemListElement: [
       {
         "@type": "ListItem",
@@ -14,7 +14,7 @@ export default function JsonLd() {
           name: "UMAMI VANILLA",
           description:
             "豆乳ベースに甘酒・白味噌の発酵技術を融合した、主役級の満足感を持つプレミアムヴィーガンアイス。高級ホテルや上質な和食店のインバウンド対応デザートに最適。194kcal。",
-          brand: { "@type": "Brand", name: "UMAMI" },
+          brand: { "@type": "Brand", name: "UMAMI VANILLA" },
           category: "業務用ヴィーガンアイスクリーム",
           additionalProperty: [
             { "@type": "PropertyValue", name: "カロリー", value: "194kcal" },
@@ -36,7 +36,7 @@ export default function JsonLd() {
           name: "WELLNESS VANILLA",
           description:
             "米油ベース（豆乳不使用）にメープルシロップを使用した、究極のヘルシー＆リセット系ヴィーガンアイス。ヘルスカフェ、サラダバー、ウェルネスリトリートに最適。157kcal。",
-          brand: { "@type": "Brand", name: "UMAMI" },
+          brand: { "@type": "Brand", name: "UMAMI VANILLA" },
           category: "業務用ヴィーガンアイスクリーム",
           additionalProperty: [
             { "@type": "PropertyValue", name: "カロリー", value: "157kcal" },
@@ -59,7 +59,7 @@ export default function JsonLd() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "UMAMIのヴィーガンアイスはどのようなアレルゲンに対応していますか？",
+        name: "UMAMI VANILLAのヴィーガンアイスはどのようなアレルゲンに対応していますか？",
         acceptedAnswer: {
           "@type": "Answer",
           text: "UMAMI VANILLAは乳・卵・小麦不使用（豆乳ベース）、WELLNESS VANILLAは乳・卵・小麦・大豆すべて不使用（米油ベース）です。両製品ともグルテンフリーで、100%植物性原料のみを使用しています。",
@@ -67,7 +67,7 @@ export default function JsonLd() {
       },
       {
         "@type": "Question",
-        name: "業務用の最小ロットと価格帯を教えてください。",
+        name: "UMAMI VANILLAの業務用アイスの最小ロットと価格帯を教えてください。",
         acceptedAnswer: {
           "@type": "Answer",
           text: "クラフト生産（1日最大60リットル）のため、詳細なロットや価格については無料サンプル請求フォームよりお問い合わせください。1スクープ500円での提供時、原価率は15%〜22%を実現できます。",
