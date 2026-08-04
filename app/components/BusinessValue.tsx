@@ -90,7 +90,7 @@ export default function BusinessValue() {
           className={`max-w-3xl mx-auto mb-24 ${sectionVisible ? "" : "opacity-0"}`}
           style={sectionVisible ? { animation: "fade-in-up 0.8s ease-out 0.2s both" } : {}}
         >
-          <div className="bg-white rounded-3xl p-8 lg:p-14 border border-border-light shadow-sm relative overflow-hidden card-elegant">
+          <div className="bg-white rounded-3xl p-5 sm:p-8 lg:p-14 border border-border-light shadow-sm relative overflow-hidden card-elegant">
             {/* Subtle corner accent */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent-lighter/50 to-transparent" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent-lighter/50 to-transparent" />
@@ -102,7 +102,7 @@ export default function BusinessValue() {
                 <div className="text-center sm:text-right sm:border-r sm:border-border-light sm:pr-12">
                   <span className="text-xs text-text-muted tracking-[0.2em] uppercase">1スクープ提供価格</span>
                   <div className="mt-3 flex items-baseline justify-center sm:justify-end gap-1">
-                    <span className="text-6xl lg:text-7xl font-black gradient-text">¥500</span>
+                    <span className="text-5xl sm:text-6xl lg:text-7xl font-black gradient-text">¥500</span>
                     <span className="text-text-muted text-lg">〜</span>
                   </div>
                 </div>
@@ -111,11 +111,11 @@ export default function BusinessValue() {
                 <div className="text-center sm:text-left" ref={counterRef as React.RefObject<HTMLDivElement>}>
                   <span className="text-xs text-text-muted tracking-[0.2em] uppercase">原価率</span>
                   <div className="mt-3 flex items-baseline justify-center sm:justify-start gap-2">
-                    <span className="text-6xl lg:text-7xl font-black text-accent">
+                    <span className="text-4xl sm:text-6xl lg:text-7xl font-black text-accent">
                       {foodCostMin}%
                     </span>
                     <span className="text-2xl text-text-muted font-light">〜</span>
-                    <span className="text-6xl lg:text-7xl font-black text-accent">
+                    <span className="text-4xl sm:text-6xl lg:text-7xl font-black text-accent">
                       {foodCostMax}%
                     </span>
                   </div>

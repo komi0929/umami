@@ -119,7 +119,7 @@ function FloatingField({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           placeholder={focused ? placeholder : ""}
-          className={`w-full pl-11 pr-4 text-sm text-primary bg-transparent focus:outline-none transition-all duration-200 ${
+          className={`w-full pl-11 pr-4 text-base text-primary bg-transparent focus:outline-none transition-all duration-200 ${
             isFloating ? "pt-5 pb-1.5" : "py-3.5"
           }`}
         />
@@ -280,7 +280,7 @@ export default function ConversionCTA() {
             className={`lg:col-span-3 ${formVisible ? "" : "opacity-0"}`}
             style={formVisible ? { animation: "slide-in-left 0.8s ease-out forwards" } : {}}
           >
-            <div className="bg-white rounded-2xl p-8 lg:p-10 border border-border-light shadow-xl relative">
+            <div className="bg-white rounded-2xl p-5 sm:p-8 lg:p-10 border border-border-light shadow-xl relative">
               
               {/* Scarcity Message Box */}
               <div className="mb-8 relative rounded-xl p-[1px] overflow-hidden group">
@@ -483,7 +483,7 @@ export default function ConversionCTA() {
 
               {/* Trust Signals Section */}
               <div className="mt-8 pt-6 border-t border-border-light">
-                <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 text-center">
                   {/* Signal 1: Completely Free */}
                   <div className="flex flex-col items-center p-3 rounded-xl bg-surface-muted border border-border hover:border-accent hover:bg-white transition-all duration-300 group">
                     <div className="w-8 h-8 rounded-full bg-white text-text-muted flex items-center justify-center mb-1.5 group-hover:scale-110 group-hover:text-accent transition-all shadow-sm">

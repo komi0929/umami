@@ -39,20 +39,20 @@ export default function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight md:leading-tight lg:leading-tight mb-8 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight md:leading-tight lg:leading-tight mb-8 tracking-tight">
             インバウンド需要にこたえる、<br className="hidden md:block" />
             <span className="gradient-text">次世代の業務用ヴィーガンアイス</span>
           </h1>
 
           {/* Subtext */}
-          <p className="text-lg md:text-xl text-text-secondary mb-12 max-w-2xl font-light leading-relaxed">
+          <p className="text-base md:text-xl text-text-secondary mb-12 max-w-2xl font-light leading-relaxed">
             100%植物性・グルテンフリー。和の発酵技術が生む、一般業務用とは一線を画すプレミアムな口どけ。
           </p>
 
           {/* CTA */}
           <Link
             href="#conversion-cta"
-            className="group relative inline-flex items-center justify-center gradient-accent text-text-on-dark px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(184,151,126,0.3)] hover:shadow-[0_0_30px_rgba(184,151,126,0.5)] overflow-hidden"
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center gradient-accent text-text-on-dark px-6 sm:px-8 py-4 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(184,151,126,0.3)] hover:shadow-[0_0_30px_rgba(184,151,126,0.5)] overflow-hidden text-center"
           >
             <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
             <span className="relative">【飲食店様限定】無料サンプル一式を請求する</span>
