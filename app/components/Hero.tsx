@@ -40,7 +40,7 @@ export default function Hero() {
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight md:leading-tight lg:leading-tight mb-8 tracking-tight">
-            インバウンド需要とアレルギー対策を網羅する、<br className="hidden md:block" />
+            インバウンド需要にこたえる、<br className="hidden md:block" />
             <span className="gradient-text">次世代の業務用ヴィーガンアイス</span>
           </h1>
 
