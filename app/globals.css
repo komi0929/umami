@@ -1,52 +1,64 @@
 @import "tailwindcss";
 
-/* ===== Design System Tokens (Tailwind v4) ===== */
+/* ===== Design System Tokens — Elegant White Theme ===== */
 @theme {
-  --color-charcoal: #1a1a1a;
-  --color-charcoal-light: #2a2a2a;
-  --color-charcoal-lighter: #3a3a3a;
-  --color-cream: #f5f0e8;
-  --color-cream-dark: #e8e0d0;
-  --color-gold: #c9a96e;
-  --color-gold-light: #d4ba85;
-  --color-gold-dark: #a88a4e;
-  --color-teal: #2a6b6b;
-  --color-teal-light: #3a8b8b;
-  --color-matte-black: #0d0d0d;
-  --color-surface: #141414;
-  --color-surface-elevated: #1e1e1e;
-  --color-text-primary: #f5f0e8;
-  --color-text-secondary: #a8a29e;
-  --color-text-muted: #6b6560;
-  --color-border: #2a2a2a;
-  --color-border-light: #3a3a3a;
-  --color-success: #4ade80;
-  --color-error: #f87171;
+  /* Primary Palette — Soft, warm whites & naturals */
+  --color-white: #ffffff;
+  --color-white-warm: #fdfcfa;
+  --color-ivory: #f8f6f2;
+  --color-ivory-dark: #f0ede7;
+  --color-sand: #e8e3db;
+  --color-sand-dark: #d5cfc5;
 
+  /* Accent — Refined rose gold & sage */
+  --color-accent: #b8977e;
+  --color-accent-light: #d4bfa8;
+  --color-accent-lighter: #ece2d7;
+  --color-accent-dark: #9a7a60;
+  --color-sage: #8b9e8b;
+  --color-sage-light: #a8b8a8;
+  --color-sage-dark: #6e876e;
+
+  /* Text — Elegant dark tones */
+  --color-text-primary: #2d2926;
+  --color-text-secondary: #6b6560;
+  --color-text-muted: #a09890;
+  --color-text-light: #c5beb6;
+  --color-text-on-dark: #fdfcfa;
+
+  /* Surface & Borders */
+  --color-surface: #ffffff;
+  --color-surface-warm: #fdfcfa;
+  --color-surface-muted: #f8f6f2;
+  --color-surface-dark: #2d2926;
+  --color-border: #e8e3db;
+  --color-border-light: #f0ede7;
+  --color-border-dark: #d5cfc5;
+
+  /* Functional */
+  --color-success: #6e876e;
+  --color-error: #c07070;
+
+  /* Fonts */
   --font-sans: "Inter", "Noto Sans JP", system-ui, sans-serif;
   --font-display: "Inter", system-ui, sans-serif;
 
+  /* Animations */
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-slide-in-left: slide-in-left 0.8s ease-out forwards;
   --animate-slide-in-right: slide-in-right 0.8s ease-out forwards;
   --animate-scale-in: scale-in 0.5s ease-out forwards;
-  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
   --animate-count-up: count-up 1s ease-out forwards;
 }
 
 /* ===== Keyframes ===== */
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
@@ -55,36 +67,18 @@
 }
 
 @keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes shimmer {
@@ -94,21 +88,22 @@
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(201, 169, 110, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(201, 169, 110, 0.25);
-  }
+  0%, 100% { box-shadow: 0 0 20px rgba(184, 151, 126, 0.08); }
+  50% { box-shadow: 0 0 40px rgba(184, 151, 126, 0.18); }
 }
 
 @keyframes count-up {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
 /* ===== Base Styles ===== */
@@ -117,70 +112,71 @@ html {
 }
 
 body {
-  background-color: var(--color-matte-black);
+  background-color: var(--color-white);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.8;
 }
 
 ::selection {
-  background-color: var(--color-gold);
-  color: var(--color-matte-black);
+  background-color: var(--color-accent-lighter);
+  color: var(--color-text-primary);
 }
 
 /* ===== Scrollbar ===== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-matte-black);
+  background: var(--color-ivory);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-charcoal-lighter);
-  border-radius: 3px;
+  background: var(--color-sand-dark);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold-dark);
+  background: var(--color-accent);
 }
 
 /* ===== Utility Classes ===== */
 .glass {
-  background: rgba(30, 30, 30, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(232, 227, 219, 0.6);
 }
 
 .glass-strong {
-  background: rgba(20, 20, 20, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(232, 227, 219, 0.8);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-gold) 100%);
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 50%, var(--color-accent-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 50%, var(--color-accent-light) 100%);
+}
+
 .gradient-gold {
-  background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 50%, var(--color-gold-light) 100%);
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 50%, var(--color-accent-light) 100%);
 }
 
 .gradient-overlay {
   background: linear-gradient(
     180deg,
-    rgba(13, 13, 13, 0.3) 0%,
-    rgba(13, 13, 13, 0.5) 40%,
-    rgba(13, 13, 13, 0.85) 100%
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgba(255, 255, 255, 0.8) 100%
   );
-}
-
-.border-gradient {
-  border-image: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold), transparent) 1;
 }
 
 .section-divider {
@@ -188,25 +184,39 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--color-gold-dark) 20%,
-    var(--color-gold) 50%,
-    var(--color-gold-dark) 80%,
+    var(--color-sand) 20%,
+    var(--color-accent-lighter) 50%,
+    var(--color-sand) 80%,
     transparent 100%
   );
-  opacity: 0.3;
+  opacity: 0.6;
 }
 
 /* ===== Form Styles ===== */
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(184, 151, 126, 0.1);
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--color-text-muted);
+  color: var(--color-text-light);
+}
+
+/* ===== Card Styles ===== */
+.card-elegant {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: all 0.4s ease;
+}
+
+.card-elegant:hover {
+  border-color: var(--color-accent-lighter);
+  box-shadow: 0 8px 40px rgba(45, 41, 38, 0.06);
+  transform: translateY(-2px);
 }
 
 /* ===== Scroll Animation Helpers ===== */

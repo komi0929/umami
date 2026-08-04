@@ -27,7 +27,7 @@ const supportTools = [
   {
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
       </svg>
     ),
     title: "発酵ストーリーPOP",
@@ -59,12 +59,12 @@ export default function BusinessValue() {
     <section
       id="business-value"
       ref={sectionRef}
-      className="relative py-24 lg:py-36 bg-surface overflow-hidden"
+      className="relative py-24 lg:py-36 bg-surface-muted overflow-hidden"
       aria-label="ビジネス価値"
     >
       {/* Background Decorative Elements */}
-      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-gold/[0.03] rounded-full blur-[150px]" />
-      <div className="absolute bottom-20 left-0 w-[400px] h-[400px] bg-teal/[0.03] rounded-full blur-[120px]" />
+      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-accent-lighter/30 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-20 left-0 w-[400px] h-[400px] bg-sage-light/20 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -72,10 +72,10 @@ export default function BusinessValue() {
           className={`text-center mb-16 lg:mb-24 ${sectionVisible ? "" : "opacity-0"}`}
           style={sectionVisible ? { animation: "fade-in-up 0.8s ease-out forwards" } : {}}
         >
-          <span className="text-xs tracking-[0.3em] text-gold uppercase font-medium">
+          <span className="text-xs tracking-[0.3em] text-accent uppercase font-medium">
             High Profitability
           </span>
-          <h2 className="mt-4 text-3xl lg:text-5xl font-bold text-cream tracking-tight">
+          <h2 className="mt-4 text-3xl lg:text-5xl font-bold text-text-primary tracking-tight">
             プレミアム価格を実現する、
             <br className="hidden sm:block" />
             <span className="gradient-text">高収益モデル。</span>
@@ -90,16 +90,16 @@ export default function BusinessValue() {
           className={`max-w-3xl mx-auto mb-24 ${sectionVisible ? "" : "opacity-0"}`}
           style={sectionVisible ? { animation: "fade-in-up 0.8s ease-out 0.2s both" } : {}}
         >
-          <div className="glass rounded-3xl p-8 lg:p-14 border border-gold/10 relative overflow-hidden">
+          <div className="bg-white rounded-3xl p-8 lg:p-14 border border-border-light shadow-sm relative overflow-hidden card-elegant">
             {/* Subtle corner accent */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-gold/5 to-transparent" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-gold/5 to-transparent" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent-lighter/50 to-transparent" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent-lighter/50 to-transparent" />
 
             <div className="relative z-10">
               {/* Two-column stat layout */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 items-center">
                 {/* Price Point */}
-                <div className="text-center sm:text-right sm:border-r sm:border-border sm:pr-12">
+                <div className="text-center sm:text-right sm:border-r sm:border-border-light sm:pr-12">
                   <span className="text-xs text-text-muted tracking-[0.2em] uppercase">1スクープ提供価格</span>
                   <div className="mt-3 flex items-baseline justify-center sm:justify-end gap-1">
                     <span className="text-6xl lg:text-7xl font-black gradient-text">¥500</span>
@@ -111,11 +111,11 @@ export default function BusinessValue() {
                 <div className="text-center sm:text-left" ref={counterRef as React.RefObject<HTMLDivElement>}>
                   <span className="text-xs text-text-muted tracking-[0.2em] uppercase">原価率</span>
                   <div className="mt-3 flex items-baseline justify-center sm:justify-start gap-2">
-                    <span className="text-6xl lg:text-7xl font-black text-gold">
+                    <span className="text-6xl lg:text-7xl font-black text-accent">
                       {foodCostMin}%
                     </span>
                     <span className="text-2xl text-text-muted font-light">〜</span>
-                    <span className="text-6xl lg:text-7xl font-black text-gold">
+                    <span className="text-6xl lg:text-7xl font-black text-accent">
                       {foodCostMax}%
                     </span>
                   </div>
@@ -126,21 +126,21 @@ export default function BusinessValue() {
               <div className="mt-10 relative">
                 <div className="flex items-center gap-4 mb-2">
                   <span className="text-xs text-text-muted">低原価率</span>
-                  <div className="flex-1 h-4 bg-charcoal-lighter/50 rounded-full overflow-hidden relative">
+                  <div className="flex-1 h-4 bg-sand rounded-full overflow-hidden relative">
                     <div
-                      className="h-full gradient-gold rounded-full transition-all ease-out relative"
+                      className="h-full gradient-accent rounded-full transition-all ease-out relative"
                       style={{
                         width: sectionVisible ? "22%" : "0%",
                         transition: "width 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s",
                       }}
                     >
-                      <div className="absolute inset-0 bg-white/10 animate-shimmer bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                      <div className="absolute inset-0 bg-white/30 animate-shimmer bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
                     </div>
                   </div>
                   <span className="text-xs text-text-muted">100%</span>
                 </div>
                 <p className="text-center text-sm text-text-secondary mt-4">
-                  一般的な業務用アイスクリームと比較して<span className="text-gold font-semibold">圧倒的な利益率</span>を実現
+                  一般的な業務用アイスクリームと比較して<span className="text-accent font-semibold">圧倒的な利益率</span>を実現
                 </p>
               </div>
             </div>
@@ -149,7 +149,7 @@ export default function BusinessValue() {
 
         {/* Support Tools Section */}
         <div className="text-center mb-12">
-          <h3 className="text-2xl lg:text-3xl font-bold text-cream">
+          <h3 className="text-2xl lg:text-3xl font-bold text-text-primary">
             無料で提供する<span className="gradient-text">販促ツール</span>
           </h3>
           <p className="mt-3 text-text-secondary text-sm max-w-md mx-auto">
@@ -172,18 +172,18 @@ export default function BusinessValue() {
                   : {}
               }
             >
-              <div className="glass rounded-2xl p-7 lg:p-8 border border-border hover:border-gold/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gold/5 h-full">
+              <div className="bg-white rounded-2xl p-7 lg:p-8 border border-border-light hover:border-accent-lighter transition-all duration-500 hover:-translate-y-2 hover:shadow-lg hover:shadow-accent/5 h-full card-elegant">
                 {/* Icon + Stat */}
                 <div className="flex items-start justify-between mb-5">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 text-gold transition-all duration-300 group-hover:bg-gold/15 group-hover:scale-110">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-lighter text-accent transition-all duration-300 group-hover:bg-accent-light/50 group-hover:scale-110">
                     {tool.icon}
                   </div>
-                  <span className="text-[10px] tracking-[0.15em] text-gold/70 font-medium uppercase bg-gold/5 px-2.5 py-1 rounded-full">
+                  <span className="text-[10px] tracking-[0.15em] text-accent font-medium uppercase bg-accent-lighter px-2.5 py-1 rounded-full">
                     {tool.stat}
                   </span>
                 </div>
 
-                <h4 className="text-lg font-bold text-cream mb-2.5">{tool.title}</h4>
+                <h4 className="text-lg font-bold text-text-primary mb-2.5">{tool.title}</h4>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   {tool.description}
                 </p>

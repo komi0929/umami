@@ -8,9 +8,17 @@ interface ScrollAnimationOptions {
   triggerOnce?: boolean;
 }
 
+interface ScrollAnimationResult<T extends HTMLElement> {
+  ref: RefObject<T | null>;
+  isVisible: boolean;
+}
+
 export function useScrollAnimation<T extends HTMLElement>(
-  options: ScrollAnimationOptions = {}
-): [RefObject<T | null>, boolean] {
+  optionsOrAnimationName?: ScrollAnimationOptions | string
+): ScrollAnimationResult<T> & [RefObject<T | null>, boolean] {
+  const options: ScrollAnimationOptions =
+    typeof optionsOrAnimationName === "string" ? {} : (optionsOrAnimationName ?? {});
+
   const { threshold = 0.15, rootMargin = "0px 0px -50px 0px", triggerOnce = true } = options;
   const ref = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -37,5 +45,11 @@ export function useScrollAnimation<T extends HTMLElement>(
     return () => observer.disconnect();
   }, [threshold, rootMargin, triggerOnce]);
 
-  return [ref, isVisible];
+  // Return a hybrid that supports both destructuring patterns:
+  // const { ref, isVisible } = useScrollAnimation()  ← object destructuring
+  // const [ref, isVisible] = useScrollAnimation()     ← array destructuring
+  const result = [ref, isVisible] as ScrollAnimationResult<T> & [RefObject<T | null>, boolean];
+  result.ref = ref;
+  result.isVisible = isVisible;
+  return result;
 }

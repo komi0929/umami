@@ -11,11 +11,10 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <div className="section-divider" />
         <ProductLines />
-        <div className="section-divider" />
+        <div className="section-divider max-w-4xl mx-auto" />
         <BusinessValue />
-        <div className="section-divider" />
+        <div className="section-divider max-w-4xl mx-auto" />
         <ConversionCTA />
       </main>
       <Footer />
